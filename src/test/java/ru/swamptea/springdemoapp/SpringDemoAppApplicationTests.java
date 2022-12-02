@@ -37,14 +37,14 @@ class SpringDemoAppApplicationTests {
         Integer devappPort = devapp.getMappedPort(8080);
         Integer prodappPort = prodapp.getMappedPort(8081);
 
-        ResponseEntity<String> entityFromDevapp = restTemplate.getForEntity("http://localhost:" + devappPort, String.class);
-        ResponseEntity<String> entityFromProdapp = restTemplate.getForEntity("http://localhost:" + prodappPort, String.class);
+        ResponseEntity<String> entityFromDevapp = restTemplate.getForEntity("http://localhost:" + devappPort + "/profile", String.class);
+        ResponseEntity<String> entityFromProdapp = restTemplate.getForEntity("http://localhost:" + prodappPort + "/profile", String.class);
 
         String answerForDev = entityFromDevapp.getBody();
         String answerForProd = entityFromProdapp.getBody();
 
-        Assertions.assertEquals("dev", answerForDev);
-        Assertions.assertEquals("prod", answerForProd);
+        Assertions.assertEquals("Current profile is dev", answerForDev);
+        Assertions.assertEquals("Current profile is production", answerForProd);
 
 
     }
